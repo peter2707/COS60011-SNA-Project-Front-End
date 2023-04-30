@@ -1,11 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
+import "font-awesome/css/font-awesome.min.css";
+import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import Layout from "./Layout";
+import StudentHome from "./components/Student/StudentHome";
+import StaffHome from "./components/Staff/StaffHome";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<App />} />
+                <Route path="studenthome" element={<StudentHome />} />
+                <Route path="staffhome" element={<StaffHome />} />
+                <Route path="register" element={<Register />} />
+                <Route path="login" element={<Login />} />
+            </Route>
+        </Routes>
+    </BrowserRouter>
 );
