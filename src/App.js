@@ -1,19 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { WavyLink } from "react-wavy-transitions";
+import "./App.css";
 
 const App = () => {
     return (
-        <div>
+        <div className="home-menu">
             <h1>Home Page</h1>
             <div>
-                <Link to="/studenthome">
+                <WavyLink to="/studenthome" color="#272635">
                     <button>Student</button>
-                </Link>
+                </WavyLink>
             </div>
             <div>
-                <Link to="/staffhome">
+                <WavyLink to="/staffhome" color="#272635">
                     <button>Staff</button>
-                </Link>
+                </WavyLink>
             </div>
         </div>
     );

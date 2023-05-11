@@ -1,48 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+import "./Login.css";
 
 const LogIn = () => {
     return (
         <div className="col-md-4 offset-md-4">
-            <h3>Log In</h3>
-            <br />
-            <br />
-            <form>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Email:</span>
-                    </div>
-                    <input
-                        class="form-control"
-                        name="email"
-                        id="email"
-                        placeholder="Enter Email Address"
-                        required
-                    />
-                </div>
+            <h3 className="mt-5 mb-5">Log In</h3>
+            <Form>
+                <Form.Control type="email" placeholder="Enter Email" />
                 <br />
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Password:</span>
-                    </div>
-                    <input
-                        class="form-control"
-                        name="password"
-                        id="password"
-                        type="password"
-                        placeholder="Enter Password"
-                        required
-                    />
-                </div>
-                <br />
+                <Form.Control
+                    type="password"
+                    placeholder="Enter Password"
+                />
                 <br />
                 <Link to="/">
                     <button className="btn btn-secondary">Back</button>
                 </Link>
-                <button className="btn btn-primary" type="submit">
+                <Button variant="primary" type="submit" className="btn">
                     Log In
-                </button>
-            </form>
+                </Button>
+            </Form>
         </div>
     );
 };
