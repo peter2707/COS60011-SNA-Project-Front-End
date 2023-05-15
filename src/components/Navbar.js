@@ -6,9 +6,9 @@ import "./NavBar.css";
 const NavBar = () => {
     return (
         <nav>
-            <Navbar className="mb-3 navbar">
+            <Navbar className="navbar">
                 <Container>
-                    <WavyLink to="/" color="#272635"><p className="logo link">@Feedback</p></WavyLink>
+                    <WavyLink to="/" color="#092644"><p className="logo link">@Feedback</p></WavyLink>
                     <Navbar.Toggle />
                     <Navbar.Offcanvas placement="end">
                         <Offcanvas.Header closeButton>
@@ -16,8 +16,8 @@ const NavBar = () => {
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                             <Nav className="justify-content-end flex-grow-1 pe-3">
-                                <WavyLink to="/register" color="#272635"><p className="right-link link">Register</p></WavyLink>
-                                <WavyLink to="/login" color="#272635"><p className="right-link link">Login</p></WavyLink>
+                                <WavyLink to="/register" color="#092644"><p className="right-link link">Register</p></WavyLink>
+                                <WavyLink to="/login" color="#092644"><p className="right-link link">Login</p></WavyLink>
                             </Nav>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>

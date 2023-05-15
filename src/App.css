@@ -1,16 +1,23 @@
 body {
   margin: 0;
-  background-color: #E8E9F3;
+  background-color: #E8F2FB;
   font-family: Comic Sans MS;
-  text-align: center;
   position: relative;
   min-height: 100vh;
   padding-bottom: 2.5rem;
 }
 
-footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;
+.text-center{
+  text-align: center;
+}
+
+.menu-1{
+  background-color: #3898D4;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  border-radius: 20px;
+}
+
+.banner{
+  margin-top: -130px;
 }
