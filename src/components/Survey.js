@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Form, Button, ProgressBar } from "react-bootstrap";
 import axios from "axios";
-import "./StudentHome.css";
+import "./Survey.css";
 
-const StudentHome = () => {
+const Survey = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswers, setUserAnswers] = useState({});
@@ -196,4 +196,4 @@ const StudentHome = () => {
     );
 };
 
-export default StudentHome;
+export default Survey;

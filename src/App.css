@@ -21,3 +21,8 @@ body {
 .banner{
   margin-top: -100px;
 }
+
+.wide-button {
+  width: 170px;
+  height: 50px;
+}
