@@ -38,11 +38,11 @@ const App = () => {
                 <b>How feedback can support you?</b>
             </h3>
             <div className="menu-3 mt-5" id="student-section">
-                <h3>
-                    <b>Student</b>
-                </h3>
                 <Row className="mt-3">
                     <Col>
+                        <h3 className="mb-3">
+                            <b>Student</b>
+                        </h3>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Phasellus vel dui orci. Etiam erat magna,
@@ -68,12 +68,9 @@ const App = () => {
                 </Row>
             </div>
             <div className="menu-4" id="staff-section">
-                <h3>
-                    <b>Staff</b>
-                </h3>
                 <Row className="mt-3">
                     <Col>
-                    <img
+                        <img
                             className="banner"
                             src="/image-placeholder.jpg"
                             alt="staff banner"
@@ -82,6 +79,9 @@ const App = () => {
                         />
                     </Col>
                     <Col>
+                        <h3 className="mb-3">
+                            <b>Staff</b>
+                        </h3>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Phasellus vel dui orci. Etiam erat magna,
