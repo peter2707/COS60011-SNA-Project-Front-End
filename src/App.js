@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./App.css";
 
 const App = () => {
@@ -97,6 +97,48 @@ const App = () => {
                     </Col>
                 </Row>
             </div>
+            <div className="menu-5">
+                <h3>
+                    <b>Contact Us</b>
+                </h3>
+                <div className="contact-form mb-5">
+                    <Form>
+                        <Form.Group className="mb-3" controlId="fullName">
+                            <br />
+                            <br />
+                            <Form.Label>Full Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter your full name"
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="email">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control
+                                type="email"
+                                placeholder="Enter your email address"
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="message">
+                            <Form.Label>Message</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                placeholder="Enter your message"
+                            />
+                        </Form.Group>
+                        <div className="text-right">
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
+            </div>
+            <br />
+            <br />
         </Container>
     );
 };

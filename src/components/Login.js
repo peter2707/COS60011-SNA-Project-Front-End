@@ -70,7 +70,11 @@ const LogIn = () => {
         // Hardcoded account details for testing
         const accountDetails = [
             { email: "staff@example.com", password: "staff123", type: "staff" },
-            { email: "student@example.com", password: "student123", type: "student" },
+            {
+                email: "student@example.com",
+                password: "student123",
+                type: "student",
+            },
         ];
 
         // Find the account based on email and password
@@ -90,28 +94,35 @@ const LogIn = () => {
         } else {
             setError("Invalid email or password");
         }
-
-
     };
 
     return (
         <div className="col-md-4 offset-md-4 login">
             <h3 className="mt-5 mb-5">Log In</h3>
             {error && <Alert variant="danger">{error}</Alert>}
+
             <Form onSubmit={handleSubmit}>
-                <Form.Control
-                    type="email"
-                    placeholder="Enter Email"
-                    value={email}
-                    onChange={handleEmailChange}
-                />
-                <br />
-                <Form.Control
-                    type="password"
-                    placeholder="Enter Password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                />
+                <div className="text-left">
+                    <Form.Group>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter Email"
+                            value={email}
+                            onChange={handleEmailChange}
+                        />
+                    </Form.Group>
+                    <br />
+                    <Form.Group>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Enter Password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                        />
+                    </Form.Group>
+                </div>
                 <br />
                 <WavyLink to="/register" color="#092644">
                     <u>New user?</u>
