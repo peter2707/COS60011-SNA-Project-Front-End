@@ -7,8 +7,9 @@ import "font-awesome/css/font-awesome.min.css";
 import "./index.css";
 
 import Layout from "./Layout";
-import StudentHome from "./components/Student/StudentHome";
-import StaffHome from "./components/Staff/StaffHome";
+import StudentDashboard from "./components/StudentDashboard";
+import StaffDashboard from "./components/StaffDashboard";
+import Survey from "./components/Survey";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import App from "./App";
@@ -20,8 +21,9 @@ root.render(
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<App />} />
-                <Route path="studenthome" element={<StudentHome />} />
-                <Route path="staffhome" element={<StaffHome />} />
+                <Route path="studentdashboard" element={<StudentDashboard />} />
+                <Route path="staffdashboard" element={<StaffDashboard />} />
+                <Route path="survey" element={<Survey />} />
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login />} />
             </Route>
