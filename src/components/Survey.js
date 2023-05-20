@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Card, Form, Button, ProgressBar } from "react-bootstrap";
 import axios from "axios";
+
+import { TokenContext } from "..";
 import "./Survey.css";
 
 const Survey = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswers, setUserAnswers] = useState({});
+    const token = useContext(TokenContext);
 
     useEffect(() => {
         axios
             .get(
-                "https://my-json-server.typicode.com/peter2707/json-api-for-testing/questions"
+                "http://localhost:3000/api/questionnairs",
+                {headers:{Authorization:`Bearer ${token}`}}
             )
             .then((response) => {
-                setQuestions(response.data);
+                setQuestions(response.data[0].questions);
                 setUserAnswers({});
             })
             .catch((error) => {
                 console.error("Error fetching questions:", error);
             });
-    }, []);
+    }, [token]);
 
     const handleAnswerChange = (questionId, answer) => {
         setUserAnswers((prevAnswers) => ({

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { WavyLink } from "react-wavy-transitions";
 import { Button, Card, Container } from "react-bootstrap";
 
+import { TokenContext } from "..";
+
 const StudentDashboard = ({ username }) => {
+    const token = useContext(TokenContext)
+    console.log("token" + JSON.stringify(token))
     return (
         <div className="text-center">
             <h3 className="mt-5 mb-5">Student Dashboard</h3>
