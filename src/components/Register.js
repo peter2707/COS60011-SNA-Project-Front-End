@@ -202,13 +202,6 @@ const Register = () => {
                             <Col>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Class ID"
-                                    name="classId"
-                                />
-                            </Col>
-                            <Col>
-                                <Form.Control
-                                    type="text"
                                     placeholder="Student ID"
                                     name="studentId"
                                 />

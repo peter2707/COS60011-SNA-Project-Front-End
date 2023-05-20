@@ -1,154 +1,215 @@
-import React from 'react';
-import { Chart, CategoryScale, LinearScale, PointElement, BarController, BarElement, LineController, LineElement, ScatterController, BubbleController, ArcElement, Title } from 'chart.js';
-import { Bar, Line, Scatter, Bubble } from 'react-chartjs-2';
-import { Container } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { DataSet } from "vis-data";
+import { Network } from "vis-network";
+import { Container, Button, Card, Modal } from "react-bootstrap";
 
-// Register the required scales, controllers, and elements
-Chart.register(CategoryScale, LinearScale, PointElement, BarController, BarElement, LineController, LineElement, ScatterController, BubbleController, ArcElement, Title);
+import axios from "axios";
+import "./Analysis.css";
 
 const Analysis = () => {
-  // Chart 1 - Bar Chart: Number of Friends per Person
-  const barChartData = {
-    labels: ['Person A', 'Person B', 'Person C', 'Person D', 'Person E'],
-    datasets: [
-      {
-        label: 'Number of Friends',
-        data: [8, 12, 6, 10, 15],
-        backgroundColor: '#FF6384',
-      },
-    ],
-  };
+    const containerRef = useRef(null);
+    const networkRef = useRef(null);
+    const [studentData, setStudentData] = useState(null);
+    const [chartExplanation, setChartExplanation] = useState(null);
+    const [showExplanation, setShowExplanation] = useState(false);
 
-  const barChartOptions = {
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 20,
-      },
-    },
-  };
+    const zoomIn = () => {
+        if (networkRef.current) {
+            const scale = networkRef.current.getScale() * 1.1;
+            networkRef.current.moveTo({ scale });
+        }
+    };
 
-  // Chart 2 - Scatter Chart: Interaction Graph
-  const scatterChartData = {
-    datasets: [
-      {
-        label: 'Interactions',
-        data: [
-          { x: 5, y: 10 },
-          { x: 7, y: 8 },
-          { x: 3, y: 6 },
-          { x: 9, y: 12 },
-          { x: 4, y: 9 },
-        ],
-        backgroundColor: '#36A2EB',
-      },
-    ],
-  };
+    const zoomOut = () => {
+        if (networkRef.current) {
+            const scale = networkRef.current.getScale() * 0.9;
+            networkRef.current.moveTo({ scale });
+        }
+    };
 
-  const scatterChartOptions = {
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom',
-        title: {
-          display: true,
-          text: 'Time',
-        },
-      },
-      y: {
-        beginAtZero: true,
-        max: 15,
-        title: {
-          display: true,
-          text: 'Interactions',
-        },
-      },
-    },
-  };
+    const resetGraph = () => {
+        if (networkRef.current) {
+            networkRef.current.moveTo({ scale: 1, position: { x: 0, y: 0 } });
+        }
+    };
 
-  // Chart 3 - Line Chart: Latent Graph
-  const lineChartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [
-      {
-        label: 'Latent Variable',
-        data: [2, 3, 4, 3, 5],
-        fill: false,
-        borderColor: '#FFCE56',
-      },
-    ],
-  };
+    const generateExplanation = () => {
+        if (studentData) {
+            const studentsCount = studentData.students.length;
+            const relationshipsCount = studentData.relationships.length;
+            const groups = new Set();
+            const relationshipTypes = new Set();
 
-  const lineChartOptions = {
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 6,
-      },
-    },
-  };
+            studentData.students.forEach((student) => {
+                groups.add(student.group);
+            });
 
-  // Chart 4 - Bubble Chart: Following Graph
-  const bubbleChartData = {
-    datasets: [
-      {
-        label: 'Following',
-        data: [
-          { x: 5, y: 12, r: 8 },
-          { x: 7, y: 8, r: 6 },
-          { x: 3, y: 10, r: 4 },
-          { x: 9, y: 6, r: 10 },
-          { x: 4, y: 9, r: 5 },
-        ],
-        backgroundColor: '#4BC0C0',
-      },
-    ],
-  };
+            studentData.relationships.forEach((relationship) => {
+                relationshipTypes.add(relationship.type);
+            });
 
-  const bubbleChartOptions = {
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom',
-        title: {
-          display: true,
-          text: 'Time',
-        },
-      },
-      y: {
-        beginAtZero: true,
-        max: 15,
-        title: {
-          display: true,
-          text: 'Following',
-        },
-      },
-    },
-  };
+            const groupsCount = groups.size;
+            const relationshipTypesCount = relationshipTypes.size;
 
-  return (
-    <Container>
-      <div>
-        <h2>Number of Friends per Person</h2>
-        <Bar data={barChartData} options={barChartOptions} />
-      </div>
+            const explanation = `The chart represents ${studentsCount} students and ${relationshipsCount} relationships. It provides a visual representation of the connections between the students and their groups.\n\nKey points:\n- The chart contains ${groupsCount} distinct groups.\n- The relationships are categorized into ${relationshipTypesCount} types: ${Array.from(
+                relationshipTypes
+            ).join(", ")}.`;
 
-      <div>
-        <h2>Interaction Graph</h2>
-        <Scatter data={scatterChartData} options={scatterChartOptions} />
-      </div>
+            setChartExplanation(explanation);
+            setShowExplanation(true);
+        }
+    };
 
-      <div>
-        <h2>Latent Graph</h2>
-        <Line data={lineChartData} options={lineChartOptions} />
-      </div>
+    useEffect(() => {
+        const fetchStudentData = async () => {
+            try {
+                const response = await axios.get(
+                    "https://my-json-server.typicode.com/peter2707/json-api-for-testing/student-relationship "
+                );
+                const data = response.data;
+                setStudentData(data);
+            } catch (error) {
+                console.error("Error fetching student data:", error);
+            }
+        };
 
-      <div>
-        <h2>Following Graph</h2>
-        <Bubble data={bubbleChartData} options={bubbleChartOptions} />
-      </div>
-    </Container>
-  );
+        fetchStudentData();
+    }, []);
+
+    useEffect(() => {
+        if (studentData) {
+            const students = studentData.students;
+            const relationships = studentData.relationships;
+
+            // Create a DataSet for nodes and edges
+            const nodes = new DataSet(
+                students.map((student) => ({
+                    id: student.studentId,
+                    label: student.name,
+                    group: student.group,
+                }))
+            );
+            const edges = new DataSet(
+                relationships.map((relationship) => ({
+                    from: relationship.from,
+                    to: relationship.to,
+                    label: relationship.type,
+                }))
+            );
+
+            // Define options for the network diagram
+            const options = {
+                interaction: {
+                    hover: true,
+                    hoverConnectedEdges: true,
+                },
+                nodes: {
+                    shape: "dot",
+                    size: 20,
+                    font: {
+                        size: 16,
+                    },
+                },
+                edges: {
+                    width: 2,
+                },
+                groups: {
+                    A: {
+                        color: {
+                            border: "blue",
+                            background: "lightblue",
+                        },
+                    },
+                    B: {
+                        color: {
+                            border: "green",
+                            background: "lightgreen",
+                        },
+                    },
+                    C: {
+                        color: {
+                            border: "orange",
+                            background: "lightyellow",
+                        },
+                    },
+                    D: {
+                        color: {
+                            border: "red",
+                            background: "pink",
+                        },
+                    },
+                },
+                physics: {
+                    enabled: true,
+                },
+            };
+
+            // Create a new network instance
+            const network = new Network(
+                containerRef.current,
+                { nodes, edges },
+                options
+            );
+            networkRef.current = network;
+
+            // Cleanup function to remove the network when the component unmounts
+            return () => {
+                if (networkRef.current) {
+                    networkRef.current.destroy();
+                    networkRef.current = null;
+                }
+            };
+        }
+    }, [studentData]);
+
+    const handleCloseExplanation = () => {
+        setShowExplanation(false);
+    };
+
+    return (
+        <Container>
+            <h3 className="mt-5 mb-5 text-center">Social Network Analysis</h3>
+            <div className="diagram-container">
+                <div className="diagram" ref={containerRef}></div>
+                <div className="text-right">
+                    <button className="btn-chart" onClick={generateExplanation}>
+                        Explanation
+                    </button>
+                    <button className="btn-chart" onClick={resetGraph}>
+                        <i className="fa fa-refresh" aria-hidden="true"></i>
+                    </button>
+                    <button className="btn-chart" onClick={zoomOut}>
+                        <i className="fa fa-minus" aria-hidden="true"></i>
+                    </button>
+                    <button className="btn-chart" onClick={zoomIn}>
+                        <i className="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <Modal
+                    show={showExplanation}
+                    onHide={handleCloseExplanation}
+                    className="chart-modal"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Chart Explanation</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Card>
+                            <Card.Body>{chartExplanation}</Card.Body>
+                        </Card>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button
+                            variant="secondary"
+                            onClick={handleCloseExplanation}
+                        >
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        </Container>
+    );
 };
 
 export default Analysis;
