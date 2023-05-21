@@ -1,0 +1,23 @@
+.diagram{
+    height: 500px;
+    min-width: 80%;
+}
+
+.diagram-container{
+    background-color: white;
+    border-radius: 10px;
+}
+
+.btn-chart{
+    margin: 1px;
+    background-color: lightgray;
+    min-height: 30px;
+    min-width: 30px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.btn-chart:hover{
+    background-color: darkgrey;
+}
