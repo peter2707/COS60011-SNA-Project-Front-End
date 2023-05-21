@@ -1,18 +1,21 @@
 .question-card {
-    width: 400px;
+    width: 70%;
     margin: 0 auto;
     margin-top: 50px;
     padding: 20px;
-  }
-  
-  .navigation-buttons {
+}
+
+.navigation-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-  }
-  
-  .navigation-buttons button {
+}
+
+.navigation-buttons button {
     width: 120px;
     height: 40px;
-  }
-  
+}
+
+.friend-details-number{
+	margin-left: 20px;
+}
