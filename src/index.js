@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { WavyContainer } from "react-wavy-transitions";
 import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./index.css";
-import { createContext } from "react";
 
 import Layout from "./Layout";
 import StudentDashboard from "./components/StudentDashboard";
@@ -17,15 +16,9 @@ import Register from "./components/Register";
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-export const TokenContext = createContext();
-
-const MainApp = () => {
-  
-  const [token, setToken] = useState({});
-  return (
+root.render(
     <BrowserRouter>
-      <WavyContainer />
-      <TokenContext.Provider value={token}>
+        <WavyContainer />
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<App />} />
@@ -37,9 +30,5 @@ const MainApp = () => {
                 <Route path="login" element={<Login />} />
             </Route>
         </Routes>
-      </TokenContext.Provider>
     </BrowserRouter>
-  );
-};
-
-root.render(<MainApp/>);
+);
