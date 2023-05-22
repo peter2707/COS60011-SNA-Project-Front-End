@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WavyLink } from "react-wavy-transitions";
 import { Form, Button, Alert } from "react-bootstrap";
-import axios from "axios";
+// import axios from "axios";
 import "./Login.css";
 
 const LogIn = () => {
@@ -90,7 +90,6 @@ const LogIn = () => {
         } else {
             setError("Invalid email or password");
         }
-
 
     };
 

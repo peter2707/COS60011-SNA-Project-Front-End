@@ -340,7 +340,7 @@ const Survey = () => {
         <Container>
             <Card className="question-card">
                 <Card.Body>
-                    <Card.Title>Questionnaire</Card.Title>
+                    <Card.Title>Survey #1</Card.Title>
                     <ProgressBar
                         now={calculateProgress()}
                         max={questions.length}
